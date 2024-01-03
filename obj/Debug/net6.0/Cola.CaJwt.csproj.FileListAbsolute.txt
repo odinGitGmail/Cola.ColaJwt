@@ -1,0 +1,17 @@
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/Cola.CaJwt.csproj.AssemblyReference.cache
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/Cola.CaJwt.GeneratedMSBuildEditorConfig.editorconfig
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/Cola.CaJwt.AssemblyInfoInputs.cache
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/Cola.CaJwt.AssemblyInfo.cs
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/Cola.CaJwt.csproj.CoreCompileInputs.cache
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/bin/Debug/net6.0/Cola.CaJwt.deps.json
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/bin/Debug/net6.0/Cola.CaJwt.dll
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/bin/Debug/net6.0/Cola.CaJwt.pdb
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/bin/Debug/net6.0/Cola.Core.dll
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/bin/Debug/net6.0/Cola.Models.Core.dll
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/bin/Debug/net6.0/Cola.Core.pdb
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/bin/Debug/net6.0/Cola.Models.Core.pdb
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/Cola.CaJwt.csproj.CopyComplete
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/Cola.CaJwt.dll
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/refint/Cola.CaJwt.dll
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/Cola.CaJwt.pdb
+/Users/dinya/github/OdinCola/Cola.Solution/Cola.CaJwt/obj/Debug/net6.0/ref/Cola.CaJwt.dll
