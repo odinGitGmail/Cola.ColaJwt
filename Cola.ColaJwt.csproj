@@ -6,6 +6,17 @@
         <Nullable>enable</Nullable>
         <AssemblyName>Cola.ColaJwt</AssemblyName>
         <RootNamespace>Cola.ColaJwt</RootNamespace>
+        <Version>1.0.3</Version>
+        <Title>Cola.ColaJwt</Title>
+        <Authors>OdinSam</Authors>
+        <Description>Cola.ColaJwt 组件</Description>
+        <Copyright>copyRight © 2023 OdinSam</Copyright>
+        <PackageProjectUrl>https://github.com/odinGitGmail/Cola.ColaJwt</PackageProjectUrl>
+        <PackageIcon>icon.png</PackageIcon>
+        <RepositoryUrl>https://github.com/odinGitGmail/Cola.ColaJwt</RepositoryUrl>
+        <PackageTags>Cola.ColaJwt;cola;jwt</PackageTags>
+        <AssemblyVersion>1.0.3</AssemblyVersion>
+        <FileVersion>1.0.3</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,5 +27,9 @@
     <ItemGroup>
       <ProjectReference Include="..\Cola.Core\Cola.Core.csproj" />
     </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+      <Exec Command="dotnet restore" />
+    </Target>
 
 </Project>
