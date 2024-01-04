@@ -17,6 +17,7 @@
         <PackageTags>Cola.ColaJwt;cola;jwt</PackageTags>
         <AssemblyVersion>1.0.3</AssemblyVersion>
         <FileVersion>1.0.3</FileVersion>
+        <PackageReadmeFile>./readme.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,6 +29,15 @@
       <ProjectReference Include="..\Cola.Core\Cola.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Include="icon.png"  Pack="true" PackagePath="\" />
+        <EmbeddedResource Include="icon.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="readme.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
       <Exec Command="dotnet restore" />
     </Target>
