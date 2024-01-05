@@ -3,9 +3,9 @@ using System.Security.Claims;
 using System.Text;
 using Cola.Core.Models.ColaJwt;
 using Cola.Core.Utils;
-using Cola.Core.Utils.Enums;
-using Cola.Core.Utils.Extensions;
-using Cola.Core.Utils.Helper;
+using Cola.CoreUtils.Enums;
+using Cola.CoreUtils.Extensions;
+using Cola.CoreUtils.Helper;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Cola.ColaJwt;
