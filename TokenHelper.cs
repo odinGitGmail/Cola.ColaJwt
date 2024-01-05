@@ -3,9 +3,9 @@ using System.Security.Claims;
 using System.Text;
 using Cola.Core.Models.ColaJwt;
 using Cola.Core.Utils;
-using Cola.Core.Utils.Enums;
-using Cola.Core.Utils.Extensions;
-using Cola.Core.Utils.Helper;
+using Cola.CoreUtils.Enums;
+using Cola.CoreUtils.Extensions;
+using Cola.CoreUtils.Helper;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Cola.ColaJwt;
@@ -118,7 +118,7 @@ public class TokenHelper
         var refreshToken = new RefreshToken() 
         {
             JwtId = securityToken.Id,
-            TokenId = loginName.ToMd5Lower(),
+            TokenId = loginName.StringToMd5Lower(),
             CreationTime = DateTime.Now,
             ExpiryTime = DateTime.Now.AddMonths(refreshTokenExpiresMinutes),
             Token = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerationCodeHelper.GenerationCode(32,true,true,false)))
