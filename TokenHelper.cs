@@ -118,7 +118,7 @@ public class TokenHelper
         var refreshToken = new RefreshToken() 
         {
             JwtId = securityToken.Id,
-            TokenId = loginName.ToMd5Lower(),
+            TokenId = loginName.StringToMd5Lower(),
             CreationTime = DateTime.Now,
             ExpiryTime = DateTime.Now.AddMonths(refreshTokenExpiresMinutes),
             Token = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerationCodeHelper.GenerationCode(32,true,true,false)))

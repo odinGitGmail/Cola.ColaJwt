@@ -1,5 +1,7 @@
 ﻿### ColaJwt
 
+[![Version](https://flat.badgen.net/nuget/v/Cola.ColaJwt?label=version)](https://github.com/odinGitGmail/Cola.ColaJwt) [![download](https://flat.badgen.net/nuget/dt/Cola.ColaJwt)](https://www.nuget.org/packages/Cola.ColaJwt) [![commit](https://flat.badgen.net/github/last-commit/odinGitGmail/Cola.ColaJwt)](https://flat.badgen.net/github/last-commit/odinGitGmail/Cola.ColaJwt) [![Blog](https://flat.badgen.net/static/blog/odinsam.com)](https://odinsam.com)
+
 > author: odinsam
 
 ```json 配置信息
