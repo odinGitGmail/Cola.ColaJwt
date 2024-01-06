@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 
 namespace Cola.ColaJwt;
 
@@ -25,7 +24,9 @@ public static class ColaJwtInject
         IConfiguration config) where T : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         ConsoleHelper.WriteInfo("注入【 Custom Scheme AuthenticationHandler 】");
-        return services.AddColaJwtAuthentication<T>().AddColaJwtBearer(config)
+        return services
+            .AddColaJwtAuthentication<T>()
+            .AddColaJwtBearer(config)
             .AddColaJwtScheme<T>();
     }
     
@@ -40,8 +41,10 @@ public static class ColaJwtInject
         IConfiguration config)
     {
         ConsoleHelper.WriteInfo("注入【 ApiResponseForAuthenticationHandler 】");
-        return services.AddColaJwtAuthentication<ApiResponseForAuthenticationHandler>().AddColaJwtBearer(config)
-                    .AddColaJwtScheme<ApiResponseForAuthenticationHandler>();
+        return services
+            .AddColaJwtAuthentication<ApiResponseForAuthenticationHandler>()
+            .AddColaJwtBearer(config)
+            .AddColaJwtScheme<ApiResponseForAuthenticationHandler>();
     }
     
     /// <summary>
@@ -102,7 +105,7 @@ public static class ColaJwtInject
     /// <param name="authenticationBuilder"></param>
     /// <param name="config"></param>
     /// <returns></returns>
-    public static AuthenticationBuilder AddColaJwtBearer(
+    private static AuthenticationBuilder AddColaJwtBearer(
         this  AuthenticationBuilder authenticationBuilder,
         IConfiguration config)
     {
@@ -129,7 +132,7 @@ public static class ColaJwtInject
                     ValidateAudience = false,
                     //是否验证失效时间
                     ValidateLifetime = true,
-                    //这个是缓冲过期时间，也就是说，即使我们配置了过期时间，这里也要考虑进去，过期时间+缓冲，默认好像是7分钟，你可以直接设置为0
+                    //这个是缓冲过期时间，也就是说，即使配置了过期时间，这里也要考虑进去，过期时间+缓冲，默认好像是7分钟，你可以直接设置为0
                     ClockSkew = TimeSpan.Zero,
                 };
             });
@@ -142,7 +145,7 @@ public static class ColaJwtInject
     /// </summary>
     /// <param name="authenticationBuilder"></param>
     /// <returns></returns>
-    public static AuthenticationBuilder AddColaJwtScheme<T>(
+    private static AuthenticationBuilder AddColaJwtScheme<T>(
         this AuthenticationBuilder authenticationBuilder) where T : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         authenticationBuilder.AddScheme<AuthenticationSchemeOptions,T>(
@@ -152,36 +155,5 @@ public static class ColaJwtInject
             });
         ConsoleHelper.WriteInfo("注入【 ColaJwtScheme 】");
         return authenticationBuilder;
-    }
-
-    /// <summary>
-    /// AddColaJwt
-    /// </summary>
-    /// <param name="services"></param>
-    /// <returns></returns>
-    public static IServiceCollection AddColaSwaggerGen(
-        this IServiceCollection services)
-    {
-        services.AddSwaggerGen(c =>
-        {
-            var scheme = new OpenApiSecurityScheme()
-            {
-                Description = "Authorization header. \r\nExample: 'Bearer 123456'",
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Authorization"
-                },
-                Scheme = "oauth2",
-                Name = "Authorization",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
-            };
-            c.AddSecurityDefinition("Authorization", scheme);
-            var requirement = new OpenApiSecurityRequirement();
-            requirement[scheme] = new List<string>();
-            c.AddSecurityRequirement(requirement);
-        });
-        return services;
     }
 }
