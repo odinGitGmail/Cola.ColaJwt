@@ -110,7 +110,7 @@ public static class ColaJwtInject
         IConfiguration config)
     {
         var jwtConfig = config.GetSection(SystemConstant.CONSTANT_COLAJWT_SECTION).Get<ColaJwtOption>();
-        jwtConfig = jwtConfig ?? new ColaJwtOption();
+        jwtConfig ??= new ColaJwtOption();
         authenticationBuilder
             .AddJwtBearer(x =>
             {
