@@ -23,11 +23,12 @@ public static class ColaJwtInject
         this IServiceCollection services,
         IConfiguration config) where T : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        ConsoleHelper.WriteInfo("注入【 Custom Scheme AuthenticationHandler 】");
-        return services
+        var authenticationBuilder = services
             .AddColaJwtAuthentication<T>()
             .AddColaJwtBearer(config)
             .AddColaJwtScheme<T>();
+        ConsoleHelper.WriteInfo("AddColaJwt 注入【 Custom Scheme AuthenticationHandler 】");
+        return authenticationBuilder;
     }
     
     /// <summary>
@@ -40,11 +41,12 @@ public static class ColaJwtInject
         this IServiceCollection services,
         IConfiguration config)
     {
-        ConsoleHelper.WriteInfo("注入【 ApiResponseForAuthenticationHandler 】");
-        return services
+        var authenticationBuilder =  services
             .AddColaJwtAuthentication<ApiResponseForAuthenticationHandler>()
             .AddColaJwtBearer(config)
             .AddColaJwtScheme<ApiResponseForAuthenticationHandler>();
+        ConsoleHelper.WriteInfo("ColaJwt 注入【 Custom Scheme AuthenticationHandler 】");
+        return authenticationBuilder;
     }
     
     /// <summary>
@@ -57,7 +59,7 @@ public static class ColaJwtInject
         this IServiceCollection services,
         IConfiguration config)
     {
-        ConsoleHelper.WriteInfo("注入【 AddColaJwtWithDefaultScheme 】");
+        ConsoleHelper.WriteInfo("ColaJwt 注入【 AddColaJwtWithDefaultScheme 】");
         return services.AddColaJwtDefaultAuthentication().AddColaJwtBearer(config);
     }
 
@@ -76,7 +78,7 @@ public static class ColaJwtInject
                 x.DefaultChallengeScheme = nameof(T);
                 x.DefaultForbidScheme = nameof(T);
             });
-        ConsoleHelper.WriteInfo("注入【 ColaJwtAuthentication 】");
+        ConsoleHelper.WriteInfo("ColaJwt 注入【 ColaJwtAuthentication 】");
         return injectResult;
     }
     
@@ -95,7 +97,7 @@ public static class ColaJwtInject
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultForbidScheme = JwtBearerDefaults.AuthenticationScheme;
             });
-        ConsoleHelper.WriteInfo("注入【 ColaJwtAuthentication 】");
+        ConsoleHelper.WriteInfo("ColaJwt 注入【 ColaJwtAuthentication 】");
         return injectResult;
     }
 
@@ -136,7 +138,7 @@ public static class ColaJwtInject
                     ClockSkew = TimeSpan.Zero,
                 };
             });
-        ConsoleHelper.WriteInfo("注入【 ColaJwtBearer 】");
+        ConsoleHelper.WriteInfo("ColaJwt 注入【 ColaJwtBearer 】");
         return authenticationBuilder;
     }
 
@@ -151,9 +153,8 @@ public static class ColaJwtInject
         authenticationBuilder.AddScheme<AuthenticationSchemeOptions,T>(
             nameof(T), o=>
             {
-                    
             });
-        ConsoleHelper.WriteInfo("注入【 ColaJwtScheme 】");
+        ConsoleHelper.WriteInfo("ColaJwt 注入【 ColaJwtScheme 】");
         return authenticationBuilder;
     }
 }
