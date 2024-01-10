@@ -7,8 +7,8 @@
 ```json 配置信息
 {
   "ColaJwt": {
-    "Secret": "123456123456123456123456",
-    "IsUser": "odinsam.com",
+    "SecretKey": "fFPdfMfCeysgZrHPeWWPTGrRphbvrunkGuktVkEmacazAlzFphWcGEaoHXBycxmDrWDtqomxmLfFabYTZQKocbRqNFzuSzIURBIsxruzqvzRRYhuMaxmNfviApzDGOZy@uK&&OEb",
+    "IssUser": "odinsam.com",
     "Audience": "odinsam",
     "AccessExpiration": 30,
     "RefreshExpiration": 30
@@ -30,67 +30,35 @@ app.UseAuthorization();
 ```
 
 ```csharp
-// create token
-[HttpGet("GetToken")]
-public ApiResult  GetToken()
+// login get token
+/// <summary>
+/// login
+/// </summary>
+/// <returns></returns>
+[HttpGet("/api/[Controller]/login")]
+[AllowAnonymous]
+public TokenResult Login()
 {
-    var jwtConfig = _configuration.GetSection("ColaJwt");
-    var tokenResult = TokenHelper.CreateToken(
-        "odinsam",
-        jwtConfig.GetValue<string>("Secret"),
-        new ClaimsIdentity(new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-            new Claim(JwtRegisteredClaimNames.Sub, "odinsam")
-        }),
-        jwtConfig.GetValue<int>("AccessExpiration"),
-        jwtConfig.GetValue<int>("RefreshExpiration"));
-    dicToken.TryAdd(tokenResult.Refresh.Token, tokenResult.Refresh);
-    return new ApiResult
+    return _colaJwt.CreateToken(_colaJwt.CreateTokenDescriptor(new TokenUserInfo()
     {
-        Code = 0,
-        Data = tokenResult
-    };
+        CurrentUserId = "123123",
+        CurrentLoginName = "odinSam",
+        CurrentUserName = "djj"
+    }));
 }
 ```
 
 ```csharp 
-//validation token
+/// <summary>
+/// Version1 需要token访问
+/// </summary>
+/// <returns></returns>
+[HttpGet("/api/[Controller]/values1")]
 [Authorize]
-    [HttpGet("GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
-    {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
-    }
-```
-
-```csharp
-//验证token
-[HttpGet("ValidateToken")]
-public ApiResult ValidateToken(string token,string refreshToken)
+public string Version()
 {
-    try
-    {
-        var jwtConfig = _configuration.GetSection("ColaJwt");
-        var secretKey = jwtConfig.GetValue<string>("Secret");
-        dicToken.TryGetValue(refreshToken,out var storedRefreshToken);
-        var validateResult = TokenHelper.ValidateToken(secretKey, token, storedRefreshToken);
-        storedRefreshToken.Used = validateResult;
-        return new ApiResult()
-        {
-            Message = "validate success, refreshToken is used"
-        };
-    }
-    catch
-    {
-        return null;
-    }
+    string str = "abc123abc456abc";
+    str = str.Replace("a", string.Empty);
+    return $"1.0 {str}";
 }
 ```
-

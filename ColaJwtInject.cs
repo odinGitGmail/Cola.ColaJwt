@@ -28,6 +28,8 @@ public static class ColaJwtInject
             .AddColaJwtBearer(config)
             .AddColaJwtScheme<T>();
         ConsoleHelper.WriteInfo("AddColaJwt 注入【 Custom Scheme AuthenticationHandler 】");
+        services.AddSingleton<IColaJwt, ColaJwt>();
+        ConsoleHelper.WriteInfo("AddColaJwt 注入【 IColaJwt, ColaJwt 】");
         return authenticationBuilder;
     }
     
@@ -42,10 +44,12 @@ public static class ColaJwtInject
         IConfiguration config)
     {
         var authenticationBuilder =  services
-            .AddColaJwtAuthentication<ApiResponseForAuthenticationHandler>()
+            .AddColaJwtAuthentication<ColaAuthenticationHandler>()
             .AddColaJwtBearer(config)
-            .AddColaJwtScheme<ApiResponseForAuthenticationHandler>();
+            .AddColaJwtScheme<ColaAuthenticationHandler>();
         ConsoleHelper.WriteInfo("ColaJwt 注入【 Custom Scheme AuthenticationHandler 】");
+        services.AddSingleton<IColaJwt, ColaJwt>();
+        ConsoleHelper.WriteInfo("AddColaJwt 注入【 IColaJwt, ColaJwt 】");
         return authenticationBuilder;
     }
     
@@ -75,8 +79,9 @@ public static class ColaJwtInject
             .AddAuthentication(x =>
             {
                 x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = nameof(T);
-                x.DefaultForbidScheme = nameof(T);
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = typeof(T).Name;
+                x.DefaultForbidScheme = typeof(T).Name;
             });
         ConsoleHelper.WriteInfo("ColaJwt 注入【 ColaJwtAuthentication 】");
         return injectResult;
@@ -123,10 +128,9 @@ public static class ColaJwtInject
                     //是否验证SecurityKey
                     ValidateIssuerSigningKey = true,
                     //设置SecurityKey
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey)),
                     //发行人 //Issuer，这两项和前面签发jwt的设置一致
-                    ValidIssuer = jwtConfig.IsUser,
-                    //订阅人
+                    ValidIssuer = jwtConfig.IssUser,
                     ValidAudience = jwtConfig.Audience,
                     //是否验证Issuer
                     ValidateIssuer = false,
@@ -150,10 +154,10 @@ public static class ColaJwtInject
     private static AuthenticationBuilder AddColaJwtScheme<T>(
         this AuthenticationBuilder authenticationBuilder) where T : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        authenticationBuilder.AddScheme<AuthenticationSchemeOptions,T>(
-            nameof(T), o=>
-            {
-            });
+        authenticationBuilder.AddScheme<AuthenticationSchemeOptions,T>(typeof(T).Name, x =>
+        {
+            
+        });
         ConsoleHelper.WriteInfo("ColaJwt 注入【 ColaJwtScheme 】");
         return authenticationBuilder;
     }
