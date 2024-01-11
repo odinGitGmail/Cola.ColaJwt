@@ -2,6 +2,7 @@
 using Cola.Core.ColaConsole;
 using Cola.Core.Models.ColaJwt;
 using Cola.Core.Utils.Constants;
+using Cola.CoreUtils.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -116,7 +117,7 @@ public static class ColaJwtInject
         this  AuthenticationBuilder authenticationBuilder,
         IConfiguration config)
     {
-        var jwtConfig = config.GetSection(SystemConstant.CONSTANT_COLAJWT_SECTION).Get<ColaJwtOption>();
+        var jwtConfig = config.GetColaSection<ColaJwtOption>(SystemConstant.CONSTANT_COLAJWT_SECTION);
         jwtConfig ??= new ColaJwtOption();
         authenticationBuilder
             .AddJwtBearer(x =>
