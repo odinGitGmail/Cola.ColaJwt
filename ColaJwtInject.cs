@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Cola.Core.ColaConsole;
 using Cola.Core.Models.ColaJwt;
-using Cola.Core.Utils.Constants;
+using Cola.CoreUtils.Constants;
 using Cola.CoreUtils.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

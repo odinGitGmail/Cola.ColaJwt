@@ -56,7 +56,7 @@ public class ColaAuthenticationHandler : AuthenticationHandler<AuthenticationSch
     protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
     {
         Response.ContentType = "application/json";    
-        var apiResult = new ApiResult();
+        var apiResult = new ApiResult<int>();
         apiResult.Code = 401;
         apiResult.Data = 401;
         apiResult.Message = "很抱歉，您无权访问该接口，请确保已经登录!";
@@ -66,7 +66,7 @@ public class ColaAuthenticationHandler : AuthenticationHandler<AuthenticationSch
     protected override async Task HandleForbiddenAsync(AuthenticationProperties properties)
     {
         Response.ContentType = "application/json";        
-        var apiResult = new ApiResult();
+        var apiResult = new ApiResult<int>();
         apiResult.Code = 403;
         apiResult.Message = "很抱歉，您的访问权限等级不够，联系管理员!!";
         await Response.WriteAsync(JsonConvert.SerializeObject(apiResult));

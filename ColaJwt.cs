@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Cola.Core.Models.ColaJwt;
 using Cola.Core.Utils;
-using Cola.Core.Utils.Constants;
+using Cola.CoreUtils.Constants;
 using Cola.CoreUtils.Enums;
 using Cola.CoreUtils.Extensions;
 using Cola.CoreUtils.Helper;
