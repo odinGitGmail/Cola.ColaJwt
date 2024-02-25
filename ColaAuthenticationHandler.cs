@@ -33,12 +33,12 @@ public class ColaAuthenticationHandler : AuthenticationHandler<AuthenticationSch
         {
             var token = Request.Headers["Authorization"].ObjToString().Replace("Bearer ", "");;
             var authHeader = AuthenticationHeaderValue.Parse(token);
-            var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
+            var credentialBytes = Convert.FromBase64String(authHeader.Parameter!);
             var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
             var sysCurrentUserInfo = _colaJwt.ValidateToken(token);
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Jti, sysCurrentUserInfo.CurrentUserId),
-                new Claim(JwtRegisteredClaimNames.Sub, sysCurrentUserInfo.CurrentLoginName),
+                new Claim(JwtRegisteredClaimNames.Jti, sysCurrentUserInfo.CurrentUserId!),
+                new Claim(JwtRegisteredClaimNames.Sub, sysCurrentUserInfo.CurrentLoginName!),
             };
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);

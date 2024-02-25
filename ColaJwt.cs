@@ -35,9 +35,9 @@ public class ColaJwt : IColaJwt
         {
             Claims = new Dictionary<string, object>()
             {
-                { JwtRegisteredClaimNames.Jti, tokenUserInfo.CurrentUserId },
+                { JwtRegisteredClaimNames.Jti, tokenUserInfo.CurrentUserId! },
             },
-            Subject = new ClaimsIdentity(new Claim[]{ new Claim(JwtRegisteredClaimNames.Sub, tokenUserInfo.CurrentLoginName) }),
+            Subject = new ClaimsIdentity(new Claim[]{ new Claim(JwtRegisteredClaimNames.Sub, tokenUserInfo.CurrentLoginName!) }),
             IssuedAt = DateTime.Now,
             NotBefore = DateTime.Now,
             Expires = DateTime.Now.AddMinutes(_colaJwtOption.AccessExpiration),
