@@ -5,6 +5,7 @@ using Cola.CoreUtils.Constants;
 using Cola.CoreUtils.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -51,6 +52,11 @@ public static class ColaJwtInject
         ConsoleHelper.WriteInfo("ColaJwt 注入【 Custom Scheme AuthenticationHandler 】");
         services.AddSingleton<IColaJwt, ColaJwt>();
         ConsoleHelper.WriteInfo("AddColaJwt 注入【 IColaJwt, ColaJwt 】");
+        // services.AddAuthorization(options =>
+        // {
+        //     options.AddPolicy("RequireAccessToken", policy =>
+        //         policy.Requirements.Add(new RefreshTokenRequirement(300))); // Set refresh threshold (e.g., 300 seconds)
+        // });
         return authenticationBuilder;
     }
     
@@ -138,7 +144,7 @@ public static class ColaJwtInject
                     //是否验证Audience
                     ValidateAudience = false,
                     //是否验证失效时间
-                    ValidateLifetime = true,
+                    ValidateLifetime = false,
                     //这个是缓冲过期时间，也就是说，即使配置了过期时间，这里也要考虑进去，过期时间+缓冲，默认好像是7分钟，你可以直接设置为0
                     ClockSkew = TimeSpan.Zero,
                 };

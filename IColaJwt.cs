@@ -1,15 +1,29 @@
-﻿using Cola.Core.Models.ColaJwt;
+﻿using System.Security.Claims;
+using Cola.Core.Models.ColaJwt;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Cola.ColaJwt;
 
 public interface IColaJwt
 {
-    SecurityTokenDescriptor CreateTokenDescriptor(TokenUserInfo tokenUserInfo);
+    /// <summary>
+    /// GenerateToken
+    /// </summary>
+    /// <param name="loginUserId">loginUserId</param>
+    /// <returns>token</returns>
+    string GenerateToken(string loginUserId);
 
-    TokenResult CreateToken(SecurityTokenDescriptor securityTokenDescriptor);
+    /// <summary>
+    /// GetPrincipalFromToken
+    /// </summary>
+    /// <param name="token">token</param>
+    /// <returns>success true</returns>
+    ClaimsPrincipal GetPrincipalFromToken(string token);
 
-    TokenUserInfo ValidateToken(string token, RefreshToken? storedRefreshToken = null);
-
-    TokenResult RefreshToken(RefreshToken refreshToken);
+    /// <summary>
+    /// RefreshToken
+    /// </summary>
+    /// <param name="token">token</param>
+    /// <returns></returns>
+    string RefreshToken(string token);
 }

@@ -4,7 +4,6 @@ using System.Text;
 using System.Text.Encodings.Web;
 using Cola.Core.Models;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -35,10 +34,11 @@ public class ColaAuthenticationHandler : AuthenticationHandler<AuthenticationSch
             var authHeader = AuthenticationHeaderValue.Parse(token);
             var credentialBytes = Convert.FromBase64String(authHeader.Parameter!);
             var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
-            var sysCurrentUserInfo = _colaJwt.ValidateToken(token);
+            var claimsPrincipal = _colaJwt.GetPrincipalFromToken(token);
+            var jit = claimsPrincipal.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Jti, sysCurrentUserInfo.CurrentUserId!),
-                new Claim(JwtRegisteredClaimNames.Sub, sysCurrentUserInfo.CurrentLoginName!),
+                new Claim(JwtRegisteredClaimNames.Jti, jit),
+                // new Claim(JwtRegisteredClaimNames.Sub, HttpCon),
             };
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);
